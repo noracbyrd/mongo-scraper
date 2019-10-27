@@ -1,0 +1,31 @@
+{
+  "name": "mongo-scraper",
+  "version": "1.0.0",
+  "description": "a site scraper with Mongo",
+  "main": "server.js",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mongojs": "^3.0.0",
+    "mongoose": "^5.7.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noracbyrd/mongo-scraper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noracbyrd/mongo-scraper/issues"
+  },
+  "homepage": "https://github.com/noracbyrd/mongo-scraper#readme"
+}
