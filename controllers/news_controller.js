@@ -6,7 +6,8 @@ var cheerio = require("cheerio");
 var axios = require("axios");
 
 // homepage route
-router.get("/", function (req, res) {
+// @ might need to do separate scrape route - have / display articles from the database. oooohhhhhhhhh.
+router.get("/scrape", function (req, res) {
     var hbsObject;
     axios.get("http://www.irishmusicmagazine.com/news/").then(function (response) {
 
@@ -16,12 +17,12 @@ router.get("/", function (req, res) {
 
         // An empty array to save the data that we'll scrape
         
-
+        var results = {};
         // Select each element in the HTML body from which you want information.
         // NOTE: Cheerio selectors function similarly to jQuery's selectors,
         // but be sure to visit the package's npm page to see how it works
         $(".post").each(function (i, element) {
-            var results = {};
+            // var results = {};
             var title = $(element).find(".storytitle").text();
             var content = $(element).find("p").text();
             var link = $(element).find("a").attr("href");
@@ -39,12 +40,17 @@ router.get("/", function (req, res) {
                 story: results
             }
             console.log(hbsObject);
-        
+           return results;
+            
         });
-        
+       
+        // console.log(hbsObject)
+        // console.log(hbsObject);
+        // res.render("../views/index", hbsObject); 
+        // console.log(hbsObject);
     });
-    res.render("../views/index", hbsObject);
-    console.log(hbsObject);
+  
+    res.render("../views/index", hbsObject); 
 });
 
 
