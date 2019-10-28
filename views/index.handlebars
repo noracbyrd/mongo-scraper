@@ -17,12 +17,13 @@
   <div class="parallax"><img src="images/anna-church-VM3u6iDvWDg-unsplash.jpg"></div>
   <br>
   <div class="container">
-        {{#each results}}
+        {{#each story}}
     <div class="section white">
       <div class="row container">
-        <h2 class="header">{{story}}</h2>
-        <p class="grey-text text-darken-3 lighten-3">{{content}}</p>
-        <a href={{link}}>Read More</a>
+        <h2 class="header" id="title">{{title}}</h2>
+        <p id="content" class="grey-text text-darken-3 lighten-3">{{content}}</p>
+        <a id = "link" href={{link}}>Read More</a>
+        <a class="waves-effect waves-light btn saveThis"><i class="material-icons left">save</i>Save Article</a>
       </div>
     </div>
     <br>
