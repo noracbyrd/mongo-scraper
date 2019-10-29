@@ -24,7 +24,7 @@
         <h2 class="header data-title" id="title">{{title}}</h2>
         <p id="content" class="grey-text text-darken-3 lighten-3 data-content">{{content}}</p>
         <a class="data-link" id = "link" href={{link}}>Read More</a>
-        <a class="waves-effect waves-light btn commentHere"><i class="material-icons left">save</i>Leave a Comment</a>
+        <a data-target="modal1" class="waves-effect waves-light btn commentHere modal-trigger"><i class="material-icons left">save</i>Leave a Comment</a>
       </div>
     </div>
     <br>
@@ -32,3 +32,25 @@
       </div>
   </div>
 </div>
+ 
+  <!-- Modal Structure -->
+  {{!-- <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div> --}}
+
+    <!-- Modal Structure -->
+  <div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>

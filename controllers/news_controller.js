@@ -30,7 +30,7 @@ router.get("/saved", function (req, res) {
     // remember to put name of the table in
     db.Saved.find({})
         .then(function (dbSaved) {
-            console.log(dbSaved);
+          
             var hbsObject = {
                 saved: dbSaved
             }
