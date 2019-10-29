@@ -18,43 +18,51 @@
   <br>
   <div class="container">
     <div id="savedArticles">
-        {{#each saved}}
-    <div class="section white">
-      <div class="row container">
-        <h2 class="header data-title" id="title">{{title}}</h2>
-        <p id="content" class="grey-text text-darken-3 lighten-3 data-content">{{content}}</p>
-        <a class="data-link" id = "link" href={{link}}>Read More</a>
-        <a data-target="modal1" class="waves-effect waves-light btn commentHere modal-trigger"><i class="material-icons left">save</i>Leave a Comment</a>
-      </div>
-    </div>
-    <br>
-      {{/each}}
-      </div>
-  </div>
-</div>
- 
-
-
-    <!-- Modal Structure -->
-  <div id="modal1" class="modal bottom-sheet">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-       <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <i class="material-icons prefix">mode_edit</i>
-          <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-          <label for="icon_prefix2">Comment</label>
-           <button class="btn waves-effect waves-light saveComment" type="submit" name="action">Submit
-    <i class="material-icons right">send</i>
-  </button>
+      {{#each saved}}
+      <div class="section white">
+        <div class="row container">
+          <h2 class="header data-title" id="title">{{title}}</h2>
+          <p id="content" class="grey-text text-darken-3 lighten-3 data-content">{{content}}</p>
+          <a class="data-link" id="link" href={{link}}>Read More</a>
+          <a data-target="modal1" class="waves-effect waves-light btn commentHere modal-trigger"><i
+              class="material-icons left">mode_edit</i>Comments</a>
         </div>
       </div>
-    </form>
-  </div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+      <br>
+      {{/each}}
     </div>
   </div>
+</div>
+
+
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal bottom-sheet">
+  <div class="modal-content">
+    <h4>Comments {{saved.title}}</h4>
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">mode_edit</i>
+            <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+            <label for="icon_prefix2">Comment</label>
+            <button class="btn waves-effect waves-light saveComment" type="submit" name="action">Submit
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="row">
+      <div id="theComments">
+        {{#each comment}}
+         <p id="aComment" class="grey-text text-darken-3 lighten-3 data-content">{{comment}}</p>
+         {{/each}}
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+  </div>
+</div>
