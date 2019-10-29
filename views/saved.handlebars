@@ -17,26 +17,18 @@
   <div class="parallax"><img src="images/anna-church-VM3u6iDvWDg-unsplash.jpg"></div>
   <br>
   <div class="container">
+    <div id="savedArticles">
+        {{#each saved}}
     <div class="section white">
       <div class="row container">
-        <h2 class="header">Parallax1</h2>
-        <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this
-          case, is moved at a different speed than the foreground content while scrolling.</p>
+        <h2 class="header data-title" id="title">{{title}}</h2>
+        <p id="content" class="grey-text text-darken-3 lighten-3 data-content">{{content}}</p>
+        <a class="data-link" id = "link" href={{link}}>Read More</a>
+        <a class="waves-effect waves-light btn commentHere"><i class="material-icons left">save</i>Leave a Comment</a>
       </div>
     </div>
     <br>
-    <div class="section white">
-      <div class="row container">
-        <h2 class="header">Parallax2</h2>
-        <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
+      {{/each}}
       </div>
-    </div>
-    <br>
-    <div class="section white">
-      <div class="row container">
-        <h2 class="header">Parallax3</h2>
-        <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
-      </div>
-    </div>
   </div>
 </div>

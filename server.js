@@ -2,7 +2,7 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var logger = require("morgan");
-var db = require("mongojs");
+
 // Setting up the port - heroku and otherwise
 var PORT = process.env.PORT || 8056;
 

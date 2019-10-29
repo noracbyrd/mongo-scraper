@@ -14,20 +14,33 @@ mongoose.connect(MONGODB_URI);
 router.get("/", function (req, res) {
     // remember to put name of the table in
     db.Article.find({})
-    .then(function(dbArticle) {
-        console.log(dbArticle);
-        var hbsObject = {
-            story: dbArticle
-        }
+        .then(function (dbArticle) {
+            var hbsObject = {
+                story: dbArticle
+            }
 
-        res.render("../views/index", hbsObject);
-    })
-    .catch(function(err){
-        res.json(err);
-    })
+            res.render("../views/index", hbsObject);
+        })
+        .catch(function (err) {
+            res.json(err);
+        })
 })
 
-  
+router.get("/saved", function (req, res) {
+    // remember to put name of the table in
+    db.Saved.find({})
+        .then(function (dbSaved) {
+            console.log(dbSaved);
+            var hbsObject = {
+                saved: dbSaved
+            }
+
+            res.render("../views/saved", hbsObject);
+        })
+        .catch(function (err) {
+            res.json(err);
+        })
+})
 
 
 // homepage route
@@ -44,7 +57,7 @@ router.get("/scrape", function (req, res) {
 
         // An empty array to save the data that we'll scrape
 
-       
+
         // Select each element in the HTML body from which you want information.
         // NOTE: Cheerio selectors function similarly to jQuery's selectors,
         // but be sure to visit the package's npm page to see how it works
@@ -52,22 +65,8 @@ router.get("/scrape", function (req, res) {
             var results = {};
             results.title = $(this).find(".storytitle").text();
             results.content = $(this).find("p").text();
-           results.link = $(this).find("a").attr("href");
+            results.link = $(this).find("a").attr("href");
 
-            
-
-
-            // Save these results in an object that we'll push into the results array we defined earlier
-            // results = new Article(title,content,link);
-            // results.title = title;
-            // results.content = content;
-            // results.link = link;
-
-            // results.push({
-            //     title: title,
-            //     content: content,
-            //     link: link
-           
             db.Article.create(results)
                 .then(function (dbArticle) {
                     // View the added result in the console
@@ -78,29 +77,25 @@ router.get("/scrape", function (req, res) {
                     console.log(err);
                 });
 
-         
+
         });
         res.send("scraped");
     });
 });
 // @ this is going to need to have the populate function 
 // @ associating the comments with the article
-router.get("/saved", function (req, res) {
-    res.render("../views/saved");
+router.post("/api/saved", function (req, res) {
+    db.Saved.create(req.body).then(function (dbSaved) {
+        res.json(dbSaved);
+    });
 });
 
 
-// @ { new: true } LOOK INTO THIS
+// res.render("../views/saved");
 
-// router.get("/", function(req, res) {
-//     cat.all(function(data) {
-//       var hbsObject = {
-//         cats: data
-//       };
-//       console.log(hbsObject);
-//       res.render("index", hbsObject);
-//     });
-//   });
+
+
+// @ { new: true } LOOK INTO THIS
 
 
 module.exports = router;
