@@ -14,12 +14,7 @@ var ArticleSchema = new Schema({
   // `title` must be of type String
   content: String,
   link: String,
-  comments: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Comment"
-    }
-  ]
+  
  
 });
 

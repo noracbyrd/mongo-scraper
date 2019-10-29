@@ -29,8 +29,9 @@ router.get("/", function (req, res) {
 router.get("/saved", function (req, res) {
     // remember to put name of the table in
     db.Saved.find({})
+    .populate("comments")
         .then(function (dbSaved) {
-          
+          console.log(dbSaved);
             var hbsObject = {
                 saved: dbSaved
             }
@@ -90,9 +91,11 @@ router.post("/api/saved", function (req, res) {
     });
 });
 
-
-// res.render("../views/saved");
-
+router.post("/api/comments",function(req,res){
+    db.Comment.create(req.body).then(function(dbComment){
+        res.json(dbComment);
+    })
+})
 
 
 // @ { new: true } LOOK INTO THIS
