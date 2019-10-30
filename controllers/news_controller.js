@@ -40,6 +40,14 @@ router.get("/saved", function (req, res) {
         })
 })
 
+// when the 'save article' button is pressed, this route saves that article's info to the saved articles collection
+router.post("/api/saved", function (req, res) {
+    db.Saved.create(req.body).then(function (dbSaved) {
+        res.json(dbSaved);
+    });
+});
+
+// currently this route displays all the comments on a blank page, instead of in the modal where I want then to go. 
 router.get("/thecomments", function (req, res) {
     db.Comment.find({})
         .then(function (dbComment) {
@@ -52,19 +60,18 @@ router.get("/thecomments", function (req, res) {
         })
 })
 
-router.get("/comments", function (req, res) {
-    db.Article.find(req.body)
-    console.log(req.body)
-        .populate("comments")
-        .then(function (dbArticle) {
-            // console.log(dbArticle);
+// this is *supposed* to create comments in conjunction with the article they were generated from, but so far it's not quite working as intended. Comments are added to the database, but they aren't being connected to anything.
+router.post("/api/comments", function (req, res) {
+    db.Comment.create(req.body)
+        .then(function (dbComment) {
             var hbsObject = {
-                comment: dbArticle
+                comment: dbComment
             }
             res.render("../views/partials/commentary", hbsObject);
+            return db.Saved.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true })
         })
         .catch(function (err) {
-            res.json(err);
+            res.json(err)
         })
 })
 
@@ -88,26 +95,6 @@ router.get("/scrape", function (req, res) {
     });
 });
 
-// when the 'save article' button is pressed, this route saves that article's info to the saved articles collection
-router.post("/api/saved", function (req, res) {
-    db.Saved.create(req.body).then(function (dbSaved) {
-        res.json(dbSaved);
-    });
-});
 
-// this is *supposed* to create comments in conjunction with the article they were generated from, but so far it's not quite working as intended. Comments are added to the database, but they aren't being connected to anything.
-router.post("/api/comments", function (req, res) {
-    db.Comment.create(req.body)
-        .then(function (dbComment) {
-            var hbsObject = {
-                comment: dbComment
-            }
-            res.render("../views/partials/commentary", hbsObject);
-            return db.Saved.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true })
-        })
-        .catch(function (err) {
-            res.json(err)
-        })
-})
 
 module.exports = router;

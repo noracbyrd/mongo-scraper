@@ -8,7 +8,6 @@ $(document).ready(function () {
         $(".modal").modal();
         // this is where I'm attempting to send that article title to the backend so that I can reference it later, but it isn't successful. Not really sure if I'd need a get or post route here.
         $.get("/thecomments", function(data,status) {
-            console.log(data);
         })
     })
     // this is where the user actually submits a comment.
