@@ -7,18 +7,18 @@ $(document).ready(function () {
         }
         $(".modal").modal();
         // this is where I'm attempting to send that article title to the backend so that I can reference it later, but it isn't successful. Not really sure if I'd need a get or post route here.
-        $.get("/comments", commentMe, function () {
+        $.get("/thecomments", function(data,status) {
+            console.log(data);
         })
     })
     // this is where the user actually submits a comment.
     $(".saveComment").on("click", function () {
-        console.log("i'm clicked");
         event.preventDefault();
         var comment = $("#icon_prefix2").val().trim();
         var newComment = {
             text: comment,
         }
-        // don't think this is the right route either. at one point I was able to save comments, but now nothing seems to be saving....
+        // comment gets sent to the backend to be saved in the database
         $.post("/api/comments", newComment, function () {
         });
     });

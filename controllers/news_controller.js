@@ -38,25 +38,35 @@ router.get("/saved", function (req, res) {
         .catch(function (err) {
             res.json(err);
         })
-    })
+})
 
-    router.get("/comments", function (req, res) {
-        db.Article.find(req.body)
-        console.log(req.body)
-        .populate("comments")
-            .then(function (dbArticle) {
-                // console.log(dbArticle);
-                var hbsObject = {
-                    comment: dbArticle
-                }
-                res.render("../views/partials/commentary", hbsObject);
-            })
-            .catch(function (err) {
-                res.json(err);
-            })
+router.get("/thecomments", function (req, res) {
+    db.Comment.find({})
+        .then(function (dbComment) {
+            var hbsObject = {
+                comment: dbComment
+            }
+            res.render("../views/partials/commentary", hbsObject)
+        }).catch(function (err) {
+            res.json(err)
         })
+})
 
- 
+router.get("/comments", function (req, res) {
+    db.Article.find(req.body)
+    console.log(req.body)
+        .populate("comments")
+        .then(function (dbArticle) {
+            // console.log(dbArticle);
+            var hbsObject = {
+                comment: dbArticle
+            }
+            res.render("../views/partials/commentary", hbsObject);
+        })
+        .catch(function (err) {
+            res.json(err);
+        })
+})
 
 // route to actually scrape the data from Irish Music Magazine
 router.get("/scrape", function (req, res) {
@@ -85,16 +95,14 @@ router.post("/api/saved", function (req, res) {
     });
 });
 
-
-
-// this is *supposed* to create comments in conjunction with the article they were generated from, but so far it's not quite working as intended
-router.get("/api/comments", function (req, res) {
+// this is *supposed* to create comments in conjunction with the article they were generated from, but so far it's not quite working as intended. Comments are added to the database, but they aren't being connected to anything.
+router.post("/api/comments", function (req, res) {
     db.Comment.create(req.body)
         .then(function (dbComment) {
             var hbsObject = {
                 comment: dbComment
             }
-            res.render("../views/partials/commentary",hbsObject);
+            res.render("../views/partials/commentary", hbsObject);
             return db.Saved.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true })
         })
         .catch(function (err) {
