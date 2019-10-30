@@ -14,8 +14,6 @@ var ArticleSchema = new Schema({
   // `title` must be of type String
   content: String,
   link: String,
-  
- 
 });
 
 // This creates our model from the above schema, using mongoose's model method

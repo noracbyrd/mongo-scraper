@@ -26,10 +26,8 @@ router.get("/", function (req, res) {
 // route to display the page that holds all the articles that have been saved
 router.get("/saved", function (req, res) {
     db.Saved.find({})
-        // this populate isn't currently working but ideally the comments would be displayed with the article they're associated with 
+        // this populate isn't currently working but ideally the comments would be displayed with the article they're associated with
         .populate("comments")
-        console.log(db.Saved.comments)
-    console.log("did populate run?")
         .then(function (dbSaved) {
             console.log(dbSaved);
             var hbsObject = {
@@ -40,7 +38,25 @@ router.get("/saved", function (req, res) {
         .catch(function (err) {
             res.json(err);
         })
-})
+    })
+
+    router.get("/comments", function (req, res) {
+        db.Article.find(req.body)
+        console.log(req.body)
+        .populate("comments")
+            .then(function (dbArticle) {
+                // console.log(dbArticle);
+                var hbsObject = {
+                    comment: dbArticle
+                }
+                res.render("../views/partials/commentary", hbsObject);
+            })
+            .catch(function (err) {
+                res.json(err);
+            })
+        })
+
+ 
 
 // route to actually scrape the data from Irish Music Magazine
 router.get("/scrape", function (req, res) {
@@ -69,13 +85,19 @@ router.post("/api/saved", function (req, res) {
     });
 });
 
+
+
 // this is *supposed* to create comments in conjunction with the article they were generated from, but so far it's not quite working as intended
-router.post("/api/comments", function (req, res) {
+router.get("/api/comments", function (req, res) {
     db.Comment.create(req.body)
         .then(function (dbComment) {
             return db.Saved.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true })
         }).then(function (dbArticle) {
-            res.json(dbArticle);
+            // console.log(dbArticle);
+            var hbsObject = {
+                comment: dbArticle
+            }
+            res.render("../views/partials/commentary", hbsObject);
         })
         .catch(function (err) {
             res.json(err)
