@@ -1,30 +1,22 @@
 var mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-// Save a reference to the Schema constructor
-var Schema = mongoose.Schema;
-
-// Using the Schema constructor, create a new LibrarySchema object
-// This is similar to a Sequelize model
-var SavedSchema = new Schema({
-  // `author` must be of type String
+const SavedSchema = new Schema({
   title: {
     type: String,
     unique: true
   },
-  // `title` must be of type String
   content: String,
   link: String,
+  //this is spposed to link the comments to the Saved articles, but I haven't managed to actually make it work...
   comments: [
     {
       type: Schema.Types.ObjectId,
       ref: "Comment"
     }
   ]
- 
 });
 
-// This creates our model from the above schema, using mongoose's model method
 var Saved = mongoose.model("Saved", SavedSchema);
 
-// Export the Book model
 module.exports = Saved;

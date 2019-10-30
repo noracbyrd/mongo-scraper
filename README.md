@@ -29,7 +29,9 @@ Back End:
 * MongoDB
 * Mongoose
 * Node.js
-* Express
+    * Express
+    * Axios
+    * Cheerio
 
 ## Improvements
 

@@ -1,4 +1,4 @@
-
+// clicking on the 'save article' button does manage to send the article data to the backend effectively
 $( document ).ready(function() {
     $(".saveThis").on("click", function(){
         var title = $(this).parent()[0].children[0].textContent;

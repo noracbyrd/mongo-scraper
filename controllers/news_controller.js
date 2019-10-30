@@ -91,13 +91,11 @@ router.post("/api/saved", function (req, res) {
 router.get("/api/comments", function (req, res) {
     db.Comment.create(req.body)
         .then(function (dbComment) {
-            return db.Saved.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true })
-        }).then(function (dbArticle) {
-            // console.log(dbArticle);
             var hbsObject = {
-                comment: dbArticle
+                comment: dbComment
             }
-            res.render("../views/partials/commentary", hbsObject);
+            res.render("../views/partials/commentary",hbsObject);
+            return db.Saved.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true })
         })
         .catch(function (err) {
             res.json(err)
